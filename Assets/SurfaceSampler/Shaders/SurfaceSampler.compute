@@ -1,0 +1,31 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel sampleOpaqueTexel
+#pragma kernel buildUvTex
+
+Texture2D<float4> Tex;
+RWTexture2D<float4> Output;
+uint TexSize;
+uint NumUvs;
+AppendStructuredBuffer<float2> OpaqueUv;
+ConsumeStructuredBuffer<float2> UvPool;
+
+[numthreads(8,8,1)]
+void sampleOpaqueTexel (uint3 id : SV_DispatchThreadID)
+{
+	uint2 xy = id.xy;
+	float2 uv = (float2)xy / (float)TexSize;
+	float alpha = Tex[xy].a;
+	if(0.5 < alpha)
+		OpaqueUv.Append(uv);
+}
+
+[numthreads(8,8,1)]
+void buildUvTex (uint3 id : SV_DispatchThreadID)
+{
+	uint idx = id.x + id.y * TexSize;
+	if(idx < NumUvs){
+		float2 uv = UvPool.Consume();
+		uint2 xy = id.xy;
+		Output[xy] = float4(uv,0,1);
+	}
+}

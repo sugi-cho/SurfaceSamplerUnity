@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6fed721f85eb7fd418f6e814a3df135d
+timeCreated: 1501667455
+licenseType: Free
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - mesh: {instanceID: 0}
+  - sampler: {fileID: 7200000, guid: ec1de61b0f1ce2e409776b2db6996e5e, type: 3}
+  - originColTex: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
